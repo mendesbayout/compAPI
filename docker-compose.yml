@@ -1,0 +1,33 @@
+version: "3.7"
+
+volumes:
+  mongo_data:
+  redis_cache:
+
+services:
+  mongo:
+    image: mongo
+    # environment:
+    #   - MONGO_USER=magellan
+    #   - MONGO_PASSWORD=magellan
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+  web: &app-base
+    build:
+      context: .
+      args:
+        - REQUIREMENTS_FILE=requirements-dev.txt
+    command: ./manage.py runserver 0.0.0.0:8000
+    links:
+      - mongo
+    volumes:
+      - .:/opt/app
+    ports:
+      - 8000:8000
+  web-bash:
+    <<: *app-base
+    command: bash
+
+    

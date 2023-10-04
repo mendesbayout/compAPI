@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block records %}
+
+{% for despacho in despachos %}
+    <div class="record-card">
+        <div class="record-title">{{despacho.title}}</div>
+        <div class="record-details">
+            <p><strong>URL:</strong> <a href="{{despacho.url}}">{{despacho.url}}</a></p>
+            <p><strong>Date:</strong> {{despacho.date}}</p>
+            <p><strong>Tipo:</strong> {{despacho.tipo}}</p>
+            <p><strong>Text:</strong> {{despacho.text}}</p>
+        </div>
+    </div>
+{% empty %}
+    <div class="record-card">
+        <div class="record-title">There is no record</div>
+        <p>To add records: <br>
+            209ae059 is the container mongo id <br>
+            docker exec -it 209ae059 bash <br>
+            mongoimport --jsonArray --db mydb --collection despachos --file ./despachos.json<br>
+        </p>
+    </div>
+{% endfor %}
+{% endblock %}
