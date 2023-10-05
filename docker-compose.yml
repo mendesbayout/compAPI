@@ -29,5 +29,7 @@ services:
   web-bash:
     <<: *app-base
     command: bash
+    ports:
+      - 8080:8080
 
     
