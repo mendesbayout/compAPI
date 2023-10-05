@@ -13,10 +13,7 @@ def get_normas():
     collection_names = db.list_collection_names()
     normas = []
     for collection_name in collection_names:
-        c = 0
-        for norma in db[collection_name].find({}).limit(10):
-            if c > 3:
-                break
+        for norma in db[collection_name].find({}).limit(3):
             normas.append(norma)
     return normas
 
